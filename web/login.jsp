@@ -23,27 +23,9 @@
         <title>Login</title>
     </head>
     <body>
-        <%
-            // Leemos la variable de sesión 'usuario'
-            String usuario = (String) session.getAttribute("usuario");
-            // Si las variable de sesión 'validado'
-            // y 'usuario' ya habia sido creadadas
-            if (validado != null && usuario != null) // Mostramos mensaje de advertencia
-            {
-                out.println("<p>Usuario o contraseña incorrectos</p>");
-            }
-            // Si la variable de sesión usuario
-            // no ha sido creada
-            if (usuario == null) // Instanciamos la variable local 'usuario'
-            {
-                usuario = "";
-            }
-            // Borramos la variable de sesión 'usuario'
-            session.setAttribute("usuario", null);
-        %>
-        <form method="post" action="bienvenido.jsp" name="formLogin">
-            <input type="text" name="usuario" value="<%=usuario%>"><br>
-            <input type="password" name="contrasena"><br>
-            <input type="submit" name="enviar" value="enviar">
+        <form action="login" method="POST">
+            <input type="text" name="user" value="usuario" />
+            <input type="password" name="password" value="contraseña" />
+            <input type="submit" value="Enviar" />
         </form>
     </body>
