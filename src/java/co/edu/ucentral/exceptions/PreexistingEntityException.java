@@ -1,4 +1,4 @@
-package co.ucentral.edu.co.exceptions;
+package co.edu.ucentral.exceptions;
 
 public class PreexistingEntityException extends Exception {
     public PreexistingEntityException(String message, Throwable cause) {

@@ -1,4 +1,4 @@
-package co.ucentral.edu.co.exceptions;
+package co.edu.ucentral.exceptions;
 
 public class NonexistentEntityException extends Exception {
     public NonexistentEntityException(String message, Throwable cause) {

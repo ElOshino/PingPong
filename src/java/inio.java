@@ -1,9 +1,9 @@
 
-import co.edu.ucentral.UsuariosJpaController;
+import co.edu.ucentral.EstudiantesJpaController;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import modelo.Usuarios;
+import modelo.Estudiantes;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,18 +19,19 @@ public class inio {
     public static void main(String[] args) {
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pingpongPU");
-        UsuariosJpaController usuariosJpaController = new UsuariosJpaController(emf);
+        EstudiantesJpaController usuariosJpaController = new EstudiantesJpaController(emf);
        
-        Usuarios usuarios = new Usuarios();
+        Estudiantes estudiantes = new Estudiantes();
         
-        usuarios.setCedula("121");
-        usuarios.setClave("12345");
-        usuarios.setNombre("Carlos");
-        usuarios.setNombreUsuario("Carlos1");
-        usuarios.setTelefono("123456");
-        usuarios.setCorreo("sacgaQfdsf");
+        estudiantes.setCedula("121");
+        estudiantes.setClave("12345");
+        estudiantes.setNombre("Carlos");
+        estudiantes.setApellido("lia");
+        estudiantes.setNombreUsuario("Carlos1");
+        estudiantes.setTelefono("123456");
+        estudiantes.setCorreo("sacgaQfdsf");
         
-        usuariosJpaController.create(usuarios);
+        usuariosJpaController.create(estudiantes);
        
     }
 }

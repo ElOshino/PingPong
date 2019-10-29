@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -17,7 +17,7 @@ import javax.persistence.Id;
  * @author Oshin
  */
 @Entity
-public class Usuarios implements Serializable {
+public class Estudiantes implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -29,6 +29,8 @@ public class Usuarios implements Serializable {
 
     @Column(name = "Nombre")
     private String nombre;
+    @Column(name = "Apellido")
+    private String apellido;
     @Column(name = "Clave")
     private String clave;
     @Column(name = "nombreUsuario")
@@ -38,11 +40,19 @@ public class Usuarios implements Serializable {
     @Column(name = "Correo")
     private String correo;
 
-    public Usuarios() {
+    public Estudiantes() {
     }
 
     public Integer getId() {
         return id;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public void setId(Integer id) {
@@ -107,10 +117,10 @@ public class Usuarios implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuarios)) {
+        if (!(object instanceof Estudiantes)) {
             return false;
         }
-        Usuarios other = (Usuarios) object;
+        Estudiantes other = (Estudiantes) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

@@ -1,4 +1,4 @@
-package co.ucentral.edu.co.exceptions;
+package co.edu.ucentral.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;

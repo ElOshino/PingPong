@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import modelo.Usuarios;
-import co.edu.ucentral.UsuariosJpaController;
+import modelo.Estudiantes;
+import co.edu.ucentral.EstudiantesJpaController;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -63,7 +63,7 @@ public class login extends HttpServlet {
         HttpSession sesion = request.getSession();
         if (action.equals("/out")) {
             sesion.invalidate();
-            response.sendRedirect("/home.jsp");
+            response.sendRedirect("/ingresoeje.jsp");
         } else {
 
         }
@@ -81,20 +81,19 @@ public class login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
         HttpSession sesion = request.getSession();
         String usu, pass;
         usu = request.getParameter("user");
         pass = request.getParameter("password");
 
-        List<Usuarios> usuarios = new ArrayList();
-        UsuariosJpaController usuariosJpaController = new UsuariosJpaController(emf);
-        usuarios = usuariosJpaController.findUsuariosEntities();
+        List<Estudiantes> usuarios = new ArrayList();
+        EstudiantesJpaController usuariosJpaController = new EstudiantesJpaController(emf);
+        usuarios = usuariosJpaController.findEstudiantesEntities();
         for (int i = 0; i < usuarios.size(); i++) {
             if (usu.equals(usuarios.get(i).getNombreUsuario()) && pass.equals(usuarios.get(i).getClave())) {
                 sesion.setAttribute("usuario", usu);
                 //redirijo a página con información de login exitoso
-                // response.sendRedirect("loginExito.jsp");
+                response.sendRedirect("adminInicio.jsp");
                 System.out.println("Inicio");
             } else {
                 //lógica para login inválido
@@ -119,5 +118,27 @@ public class login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void loginF(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession sesion = request.getSession();
+        String usu, pass;
+        usu = request.getParameter("user");
+        pass = request.getParameter("password");
+
+        List<Estudiantes> usuarios = new ArrayList();
+        EstudiantesJpaController usuariosJpaController = new EstudiantesJpaController(emf);
+        usuarios = usuariosJpaController.findEstudiantesEntities();
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (usu.equals(usuarios.get(i).getNombreUsuario()) && pass.equals(usuarios.get(i).getClave())) {
+                sesion.setAttribute("usuario", usu);
+                //redirijo a página con información de login exitoso
+                response.sendRedirect("adminInicio.jsp");
+                System.out.println("Inicio");
+            } else {
+                //lógica para login inválido
+                System.out.println("error");
+            }
+        }
+    }
 
 }
