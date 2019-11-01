@@ -6,8 +6,12 @@
 package Controlador;
 
 import co.edu.ucentral.EstudiantesJpaController;
+import co.edu.ucentral.exceptions.NonexistentEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.ServletException;
@@ -23,7 +27,9 @@ import modelo.Estudiantes;
  */
 @WebServlet(name = "estudianteCtrl", urlPatterns = {"/estudianteCtrl"})
 public class estudianteCtrl extends HttpServlet {
- EntityManagerFactory emf = Persistence.createEntityManagerFactory("pingpongPU");
+
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("pingpongPU");
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,11 +41,7 @@ public class estudianteCtrl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
 
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -54,8 +56,11 @@ public class estudianteCtrl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        
+        processRequest(request, response);
+        EstudiantesJpaController estudiantesJpaController = new EstudiantesJpaController(emf);
+        List<Estudiantes> estudianes = estudiantesJpaController.findEstudiantesEntities();
+        request.setAttribute("estudiantes", estudianes);
+        request.getRequestDispatcher("/listarEstudiantes.jsp").forward(request, response);
     }
 
     /**
@@ -69,10 +74,33 @@ public class estudianteCtrl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-      crearEstudiante(request, response);
-         
-        
+
+        String accion = request.getParameter("accion");
+        if (accion.equals("crear")) {
+            crearEstudiante(request, response);
+        } else if (accion.equals("Editar")) {
+
+            // actualizarPaciente(request, response);
+        } else if (accion.equals("borrar")) {
+            borrarEstudiante(request, response);
+        }
+
+    }
+
+    private void borrarEstudiante(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("idEstudiante"));
+        EstudiantesJpaController usuariosJpaController = new EstudiantesJpaController(emf);
+        String mensaje;
+        try {
+            usuariosJpaController.destroy(id);
+            mensaje = "Paciente borrado exitosamente";
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(estudianteCtrl.class.getName()).log(Level.SEVERE, null, ex);
+            mensaje = "Paciente no fue borrado";
+        }
+
+        request.getSession().setAttribute("Mensaje", mensaje);
+        response.sendRedirect("estudianteCtrl");
     }
 
     /**
@@ -113,7 +141,6 @@ public class estudianteCtrl extends HttpServlet {
         estudiante.setTelefono(telefono);
         usuariosJpaController.create(estudiante);
         request.getRequestDispatcher("/adminInicio.jsp").forward(request, response);
-        
-     
+
     }
 }

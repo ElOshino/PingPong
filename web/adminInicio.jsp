@@ -28,38 +28,15 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Inicio Admin </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="registroEstudiante.jsp">Resgistrar Estudiante <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="listarEstudiantes.jsp">Listar Estudianes</a>         
-                    <a class="nav-item nav-link" href="login.jsp">Cerrar sesión</a>
-                </div>
-            </div>
-        </nav>
+
         <!-- Page content -->
         <div class="main">
 
-
-
+            <jsp:include page="Layouts/Header.jsp"></jsp:include>
             
+           <jsp:include page="Layouts/Footer.jsp"></jsp:include>
         </div>
     </body>
 
-    <!-- Footer -->
-    <footer class="page-footer font-small">
-
-        <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© 2018 Copyright: Santiago Alfonso
-
-        </div>
-        <!-- Copyright -->
-
-    </footer>
-    <!-- Footer -->
 
 </html>
